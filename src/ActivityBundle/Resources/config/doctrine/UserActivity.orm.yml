@@ -1,0 +1,16 @@
+ActivityBundle\Entity\UserActivity:
+    type:  entity
+    table: users_activity
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        score:
+            type: integer
+            nullable: false
+
+
+
+            

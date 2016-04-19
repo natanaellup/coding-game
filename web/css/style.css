@@ -1,0 +1,50 @@
+.error-reset{
+    width: 100%;
+}
+.reset-button{
+    margin-top: 10px;
+}
+
+.image-form{
+    padding: 10px 0px 10px 0px;
+}
+.author{
+    float: left;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.author:hover{
+    background-color: #eaeaea;
+    color: #0d70b7;
+}
+
+.author a:hover{
+    text-decoration: none;
+    cursor: default;
+}
+
+.name{
+    text-align: center;
+}
+
+.number-of-books{
+    text-align: center;
+}
+
+.author-information{
+    margin-top: 10px;
+    border: 1px solid #d3d8e1;
+}
+
+.author-information .image{
+    float: left;
+    border: 2px solid #FFFFFF;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 8px -4px #000000;
+    margin: 0 10px;
+}
+
+.author-information .author-description{
+    padding-left: 10px;
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+
+    {% block stylesheet_libs %}
+        {% stylesheets filter='cssrewrite' output='compiled/css/libs.css'
+        '@bootstrap' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock %}
+
+    {% block stylesheets %}
+        {% stylesheets filter='cssrewrite' output='compiled/css/style.css'
+        'css/style.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock %}
+
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+<div class="container">
+
+    {% block admin_bar %}
+
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+</div>
+{% block javascript_libs %}
+    {% javascripts output='compiled/js/libs.js' filter="?jsqueeze"
+    '@jquery'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
+</html>

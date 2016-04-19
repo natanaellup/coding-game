@@ -1,0 +1,8 @@
+LessonBundle\Entity\Lesson:
+    properties:
+        chapter:
+            - NotBlank: ~
+        content:
+            - NotBlank: ~
+        language:
+            - NotBlank: ~

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    {% set lessons = language.getLessons() %}
+
+    {% for lesson in lessons %}
+        <div class="lesson">
+           {{ lesson.getChapter() }} . {{ lesson.getTitle() }}
+        </div>
+    {% endfor %}
+{% endblock %}

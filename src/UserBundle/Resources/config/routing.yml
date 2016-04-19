@@ -1,0 +1,3 @@
+user_bundle.edit_profile:
+    path:     /profile/edit
+    defaults: { _controller: UserBundle:Profile:edit }

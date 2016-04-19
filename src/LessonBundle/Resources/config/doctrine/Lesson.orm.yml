@@ -1,0 +1,30 @@
+LessonBundle\Entity\Lesson:
+    type:  entity
+    table: lessons
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+
+    fields:
+        title:
+            type: string
+            nullable: false
+        chapter:
+            type: integer
+            nullable: false
+        content:
+            type: text
+            nullable: false
+    manyToOne:
+        language:
+            targetEntity: LessonBundle\Entity\Language
+            inversedBy: lessons
+            joinColumn:
+              name: language_id
+              referencedColumnName: id
+    oneToMany:
+        questions:
+            targetEntity: ExamBundle\Entity\Question
+            mappedBy: lesson
