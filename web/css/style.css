@@ -48,3 +48,28 @@
 .author-information .author-description{
     padding-left: 10px;
 }
+.form-dialog{
+    display: none;
+}
+.form-group{
+    position:relative;
+}
+.answer-loader{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: black;
+    opacity: 0.3;
+    display: none;
+}
+.answer-loader-image{
+    width: 23%;
+    margin-top: 36px;
+    position: absolute;
+    margin-left: 100px;
+    margin-right: auto;
+}
+label.radio-answer {
+    width: 100%;
+}

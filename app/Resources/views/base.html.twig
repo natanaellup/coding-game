@@ -5,7 +5,8 @@
 
     {% block stylesheet_libs %}
         {% stylesheets filter='cssrewrite' output='compiled/css/libs.css'
-        '@bootstrap' %}
+        '@bootstrap'
+        '@jquery_ui_style' %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
     {% endblock %}
@@ -31,11 +32,20 @@
 </div>
 {% block javascript_libs %}
     {% javascripts output='compiled/js/libs.js' filter="?jsqueeze"
-    '@jquery'
+        '@jquery'
+        '@jquery_ui'
+        '@underscore'
+        '@backbone'
     %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+    {% javascripts
+        'js/app.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 </body>
 </html>

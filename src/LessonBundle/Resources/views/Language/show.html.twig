@@ -5,8 +5,10 @@
     {% set lessons = language.getLessons() %}
 
     {% for lesson in lessons %}
+        <a href="{{ path('lesson_bundle.show_lesson', {id: lesson.getId(), slugName:lesson.getTitle()|sonata_slugify}) }}">
         <div class="lesson">
            {{ lesson.getChapter() }} . {{ lesson.getTitle() }}
         </div>
+        </a>
     {% endfor %}
 {% endblock %}

@@ -22,3 +22,7 @@ services:
             calls:
                 - [ setTranslationDomain, ["admin"]]
                 - [ addChild, ['@exam_bundle.question_admin']]
+    lesson_bundle.lesson_service:
+            class: LessonBundle\Services\LessonService
+            arguments: ['@doctrine']
+

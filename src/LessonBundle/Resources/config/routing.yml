@@ -5,3 +5,6 @@ lesson_bundle.show_all_languages:
 lesson_bundle.show_language:
     path: /limbaje/{slugName}/{id}
     defaults: { _controller: LessonBundle:Language:show }
+lesson_bundle.show_lesson:
+    path: /lectia/{slugName}/{id}
+    defaults: { _controller: LessonBundle:Lesson:view }
