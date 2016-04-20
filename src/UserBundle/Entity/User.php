@@ -2,6 +2,7 @@
 
 namespace UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -49,11 +50,17 @@ class User extends BaseUser
     protected $avatar;
 
     /**
+     * @var ArrayCollection
+     */
+    private $activities;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         parent::__construct();
+        $this->activities = new ArrayCollection();
     }
 
     /**
@@ -151,6 +158,34 @@ class User extends BaseUser
         return $this;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getActivities()
+    {
+        return $this->activities;
+    }
 
+    /**
+     * @param $activity
+     * @return $this
+     */
+    public function removeActivity($activity)
+    {
+        $this->activities->removeElement($activity);
+
+        return $this;
+    }
+
+    /**
+     * @param $activity
+     * @return $this
+     */
+    public function addActivity($activity)
+    {
+        $this->activities->add($activity);
+
+        return $this;
+    }
 }
 
