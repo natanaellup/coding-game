@@ -15,3 +15,7 @@ UserBundle\Entity\User:
         avatarUrl:
             type: string
             nullable: true
+    oneToMany:
+        activities:
+            targetEntity: ActivityBundle\Entity\UserActivity
+            mappedBy: lesson

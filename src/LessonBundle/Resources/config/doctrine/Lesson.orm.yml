@@ -1,6 +1,7 @@
 LessonBundle\Entity\Lesson:
     type:  entity
     table: lessons
+    repositoryClass: LessonBundle\Repository\LessonRepository
     id:
         id:
             type: integer
@@ -27,4 +28,7 @@ LessonBundle\Entity\Lesson:
     oneToMany:
         questions:
             targetEntity: ExamBundle\Entity\Question
+            mappedBy: lesson
+        activities:
+            targetEntity: ActivityBundle\Entity\UserActivity
             mappedBy: lesson

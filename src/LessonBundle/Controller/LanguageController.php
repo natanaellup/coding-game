@@ -2,6 +2,7 @@
 namespace LessonBundle\Controller;
 
 use Doctrine\ORM\EntityRepository;
+use LessonBundle\Entity\Language;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -14,8 +15,9 @@ class LanguageController extends Controller
         $languageRepo = $this->getDoctrine()->getManager()->getRepository('LessonBundle:Language');
 
         $languages = $languageRepo->findAll();
+        $scores = $this->mappedScoreForLanguage($languages);
 
-        return $this->render('LessonBundle:Language:show_all.html.twig',array('languages' => $languages));
+        return $this->render('LessonBundle:Language:show_all.html.twig',array( 'scores'=> $scores,'languages' => $languages));
     }
 
     public function showAction(Request $request, $id)
@@ -26,5 +28,23 @@ class LanguageController extends Controller
         $language = $languageRepo->find($id);
 
         return $this->render('LessonBundle:Language:show.html.twig', array('language' => $language));
+    }
+
+    /**
+     * @param array $languages
+     *
+     * @return array
+     */
+    private function mappedScoreForLanguage($languages)
+    {
+        $activityService = $this->get('activity_bundle.services.activity_tracking');
+        $languageScores = array();
+        /** @var Language $language */
+        foreach($languages as $language)
+        {
+            $languageScores[$language->getId()] = $activityService->getLanguagePercentage($language);
+        }
+
+        return $languageScores;
     }
 }

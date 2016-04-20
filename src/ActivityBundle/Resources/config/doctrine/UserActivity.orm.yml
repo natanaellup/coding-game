@@ -1,6 +1,7 @@
 ActivityBundle\Entity\UserActivity:
     type:  entity
     table: users_activity
+    repositoryClass: ActivityBundle\Repository\UserActivityRepository
     id:
         id:
             type: integer
@@ -10,6 +11,20 @@ ActivityBundle\Entity\UserActivity:
         score:
             type: integer
             nullable: false
+    manyToOne:
+        lesson:
+            targetEntity: LessonBundle\Entity\Lesson
+            inversedBy: activities
+            joinColumn:
+              name: lesson_id
+              referencedColumnName: id
+        user:
+            targetEntity: UserBundle\Entity\User
+            inversedBy: activities
+            joinColumn:
+              name: user_id
+              referencedColumnName: id
+          
 
 
 

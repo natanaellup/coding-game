@@ -37,11 +37,17 @@ class Lesson
     private $questions;
 
     /**
+     * @var ArrayCollection
+     */
+    private $activities;
+
+    /**
      * Lesson constructor.
      */
     public function __construct()
     {
         $this->questions = new ArrayCollection();
+        $this->activites = new ArrayCollection();
     }
 
     /**
@@ -151,6 +157,36 @@ class Lesson
     public function removeQuestion($question)
     {
         $this->questions->removeElement($question);
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getActivities()
+    {
+        return $this->activities;
+    }
+
+    /**
+     * @param $activity
+     * @return $this
+     */
+    public function removeActivity($activity)
+    {
+        $this->activites->removeElement($activity);
+
+        return $this;
+    }
+
+    /**
+     * @param $activity
+     * @return $this
+     */
+    public function addActivity($activity)
+    {
+        $this->activites->add($activity);
 
         return $this;
     }
