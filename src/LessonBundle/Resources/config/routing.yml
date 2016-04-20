@@ -8,3 +8,6 @@ lesson_bundle.show_language:
 lesson_bundle.show_lesson:
     path: /lectia/{slugName}/{id}
     defaults: { _controller: LessonBundle:Lesson:view }
+lesson_bundle.post_answer:
+    path:     /post-answer
+    defaults: { _controller: LessonBundle:Lesson:postAnswer }

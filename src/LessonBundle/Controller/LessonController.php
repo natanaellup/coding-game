@@ -12,6 +12,7 @@ namespace LessonBundle\Controller;
 use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class LessonController extends Controller
 {
@@ -24,10 +25,10 @@ class LessonController extends Controller
         return $this->render('LessonBundle:Lesson:show.html.twig', array('lesson' => $lesson));
     }
 
-    public function postAnswerAction(){
+    public function postAnswerAction(Request $request){
 
-        $option = $this->getParameter('option');
-        $answerId = $this->getParameter('answer_id');
-        return new JsonResponse(array());
+        $option = $request->get('option');
+        $questionId = $request->get('question_id');
+        return new JsonResponse(array('option' => $option, 'question_id' => $questionId));
     }
 }
