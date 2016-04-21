@@ -2,6 +2,7 @@
 
 namespace UserBundle\Entity;
 
+use ActivityBundle\Entity\Badge;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
@@ -55,12 +56,18 @@ class User extends BaseUser
     private $activities;
 
     /**
+     * @var ArrayCollection
+     */
+    private $badges;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         parent::__construct();
         $this->activities = new ArrayCollection();
+        $this->badges = new ArrayCollection();
     }
 
     /**
@@ -184,6 +191,55 @@ class User extends BaseUser
     public function addActivity($activity)
     {
         $this->activities->add($activity);
+
+        return $this;
+    }
+
+    /**
+     * @param Badge $badge
+     * @param bool $updateRelation
+     * @return $this
+     */
+    public function removeBadge(Badge $badge, $updateRelation = true)
+    {
+        $this->badges->removeElement($badge);
+        if($updateRelation){
+            $badge->removeUser($this, false);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Badge $badge
+     * @param bool $updateRelation
+     * @return $this
+     */
+    public function addBadge(Badge $badge, $updateRelation = true)
+    {
+        $this->badges[] = $badge;
+        if($updateRelation){
+            $badge->addUser($this, false);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBadges()
+    {
+        return $this->badges;
+    }
+
+    /**
+     * @param ArrayCollection $badges
+     * @return $this
+     */
+    public function setBadges($badges)
+    {
+        $this->badges = $badges;
 
         return $this;
     }

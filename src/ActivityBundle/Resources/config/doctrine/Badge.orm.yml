@@ -1,0 +1,37 @@
+ActivityBundle\Entity\Badge:
+    type: entity
+    table: badges
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+
+    fields:
+        title:
+            type: string
+            nullable: false
+        level:
+            type: integer
+            nullable: false
+        logoUrl:
+            type: string
+            nullable: false
+        minXp:
+            type: integer
+            nullable: false
+        maxXp:
+            type: integer
+            nullable: false
+    manyToMany:
+        users:
+            targetEntity: UserBundle\Entity\User
+            inversedBy: badges
+            joinTable:
+                name: users_badges
+                joinColumns:
+                    badge_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    user_id:
+                        referencedColumnName: id

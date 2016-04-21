@@ -19,3 +19,7 @@ UserBundle\Entity\User:
         activities:
             targetEntity: ActivityBundle\Entity\UserActivity
             mappedBy: lesson
+    manyToMany:
+        badges:
+            targetEntity: ActivityBundle\Entity\Badge
+            mappedBy: users
