@@ -61,6 +61,11 @@ class User extends BaseUser
     private $badges;
 
     /**
+     * @var ArrayCollection
+     */
+    private $correctQuestions;
+
+    /**
      * User constructor.
      */
     public function __construct()
@@ -68,6 +73,7 @@ class User extends BaseUser
         parent::__construct();
         $this->activities = new ArrayCollection();
         $this->badges = new ArrayCollection();
+        $this->correctQuestions = new ArrayCollection();
     }
 
     /**
@@ -240,6 +246,47 @@ class User extends BaseUser
     public function setBadges($badges)
     {
         $this->badges = $badges;
+
+        return $this;
+    }
+
+    /**
+     * @param $correctQuestions
+     * @return $this
+     */
+    public function setCorrectQuestions($correctQuestions)
+    {
+        $this->correctQuestions = $correctQuestions;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCorrectQuestions()
+    {
+        return $this->correctQuestions;
+    }
+
+    /**
+     * @param $correctQuestion
+     * @return $this
+     */
+    public function addCorrectQuestion($correctQuestion)
+    {
+        $this->correctQuestions[] = $correctQuestion;
+
+        return $this;
+    }
+
+    /**
+     * @param $correctQuestion
+     * @return $this
+     */
+    public function removeCorrectQuestion($correctQuestion)
+    {
+        $this->correctQuestions->removeElement($correctQuestion);
 
         return $this;
     }

@@ -2,12 +2,14 @@
 
 namespace LessonBundle\Services;
 
+use ActivityBundle\Entity\UserQuestion;
 use ActivityBundle\Services\ActivityTracking;
 use Assetic\Asset\AssetCache;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
 use ExamBundle\Entity\Question;
 use LessonBundle\Entity\Lesson;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
  * Created by PhpStorm.
@@ -21,16 +23,18 @@ class LessonService
     private $doctrineManager = null;
     private $lessonRepository = null;
     private $activityTraking = null;
+    private $tokenStorage  = null;
 
     /**
      * LessonService constructor.
      * @param Registry $doctrine
      */
-    public function __construct(Registry $doctrine, ActivityTracking $activityTracking)
+    public function __construct(Registry $doctrine, ActivityTracking $activityTracking, TokenStorage $tokenStorage)
     {
         $this->doctrineManager = $doctrine;
         $this->lessonRepository = $doctrine->getRepository('LessonBundle:Lesson');
         $this->activityTraking = $activityTracking;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -65,6 +69,7 @@ class LessonService
         $question = $questionRepository->find($questionId);
         /*TODO test if the question has a previous correct answer*/
         if ($this->questionIsCorrect($question, $option)) {
+            $this->logCorrectQuestion($question);
             $this->activityTraking->addQuestionToActivity($question);
         }
         return $question;
@@ -72,5 +77,23 @@ class LessonService
 
     public function getLessonTotalScore(Lesson $lesson){
         return $this->activityTraking->getExamScore($lesson);
+    }
+
+    /**
+     * Log in data store correct answer.
+     *
+     * @param Question $question
+     */
+    public function logCorrectQuestion(Question $question)
+    {
+        $em = $this->doctrineManager->getManager();
+
+        $userQuestion = new UserQuestion();
+        $userQuestion->setUser($this->tokenStorage->getToken()->getUser());
+        $userQuestion->setQuestion($question);
+        $userQuestion->setTime(new \DateTime());
+
+        $em->persist($userQuestion);
+        $em->flush();
     }
 }

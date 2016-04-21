@@ -2,7 +2,7 @@
  * Created by george on 4/20/2016.
  */
 var LessonModel = Backbone.Model.extend({
-    urlPostAnswer: '/post-answer',
+    urlPostAnswer: '/app_dev.php/post-answer',
     postAnswer: function (data, successCallback, errorCallback) {
         data.format = 'json';
         var _this = this;

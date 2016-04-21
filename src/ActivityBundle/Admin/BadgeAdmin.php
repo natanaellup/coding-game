@@ -26,7 +26,7 @@ class BadgeAdmin extends Admin
             ->add('level')
             ->add('minXp')
             ->add('maxXp')
-            ->add('logoUrl', null, array('template' => 'AdminOverrideBundle:Admin:avatar_list_field.html.twig'));
+            ->add('logoUrl', null, array('sortable' => false,'template' => 'AdminOverrideBundle:Admin:avatar_list_field.html.twig'));
     }
 
     /**

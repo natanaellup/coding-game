@@ -23,3 +23,7 @@ UserBundle\Entity\User:
         badges:
             targetEntity: ActivityBundle\Entity\Badge
             mappedBy: users
+        correctQuestions:
+            targetEntity: ActivityBundle\Entity\UserQuestion
+            mappedBy: question
+
