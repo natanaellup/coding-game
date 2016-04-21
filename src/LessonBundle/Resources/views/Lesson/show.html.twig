@@ -13,7 +13,8 @@
             <form class="lesson-questions">
                 {% for question in lesson.questions %}
                     <li id="question-{{ question.id }}"  class="form-group" data-question-id="{{ question.id }}">
-                        <div class="answer-loader">
+                        <div class="loader-wrapper">
+                            <div class="answer-loader"></div>
                             <img class="answer-loader-image" src="{{ asset('images/loading.gif') }}">
                         </div>
                         <span class="question-name">{{ question.question }}</span>

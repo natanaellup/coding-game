@@ -23,15 +23,19 @@ var LessonView = Backbone.View.extend({
         var option = el.val();
         var questionId = el.parents('.form-group').data('question-id');
 
-        el.parents('.form-group').find('.answer-loader').show();
+        el.parents('.form-group').find('.loader-wrapper').show();
         $(document).trigger('post-answer', {'option': option, 'question_id': questionId});
     },
     renderSuccessPostAnswer: function (questionId, ajaxResponse) {
         var questionContainer = $('#question-' + questionId);
-        questionContainer.find('.answer-loader-image').hide();
+        if (ajaxResponse.check) {
+            questionContainer.find('.answer-loader-image').attr('src', '/images/right.png');
+        } else {
+            questionContainer.find('.answer-loader-image').attr('src', '/images/wrong.png');
+        }
     },
     renderErrorPostAnswer: function (questionId, ajaxResponse) {
         var questionContainer = $('#question-' + questionId);
-        questionContainer.find('.answer-loader-image').hide();
+        questionContainer.find('.loader-wrapper').hide();
     },
 });

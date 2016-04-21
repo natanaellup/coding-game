@@ -1,43 +1,45 @@
-.error-reset{
+.error-reset {
     width: 100%;
 }
-.reset-button{
+
+.reset-button {
     margin-top: 10px;
 }
 
-.image-form{
+.image-form {
     padding: 10px 0px 10px 0px;
 }
-.author{
+
+.author {
     float: left;
     margin-right: 10px;
     margin-top: 10px;
 }
 
-.author:hover{
+.author:hover {
     background-color: #eaeaea;
     color: #0d70b7;
 }
 
-.author a:hover{
+.author a:hover {
     text-decoration: none;
     cursor: default;
 }
 
-.name{
+.name {
     text-align: center;
 }
 
-.number-of-books{
+.number-of-books {
     text-align: center;
 }
 
-.author-information{
+.author-information {
     margin-top: 10px;
     border: 1px solid #d3d8e1;
 }
 
-.author-information .image{
+.author-information .image {
     float: left;
     border: 2px solid #FFFFFF;
     border-radius: 5px 5px 5px 5px;
@@ -45,31 +47,41 @@
     margin: 0 10px;
 }
 
-.author-information .author-description{
+.author-information .author-description {
     padding-left: 10px;
 }
-.form-dialog{
+
+.form-dialog {
     display: none;
 }
-.form-group{
-    position:relative;
+
+.form-group {
+    position: relative;
 }
-.answer-loader{
+
+.loader-wrapper {
+
+    display: none;
+}
+
+.answer-loader {
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: 100;
     background-color: black;
     opacity: 0.3;
-    display: none;
 }
-.answer-loader-image{
+
+.answer-loader-image {
     width: 23%;
     margin-top: 36px;
     position: absolute;
     margin-left: 100px;
     margin-right: auto;
+    z-index: 200;
 }
+
 label.radio-answer {
     width: 100%;
 }

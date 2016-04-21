@@ -36,6 +36,7 @@ class AppKernel extends Kernel
             new ExamBundle\ExamBundle(),
             new ActivityBundle\ActivityBundle(),
             new Devtime\BackboneBundle\DevtimeBackboneBundle(),
+            new ExecuteBundle\ExecuteBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

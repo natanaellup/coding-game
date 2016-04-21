@@ -3,6 +3,7 @@ namespace ActivityBundle\Services;
 
 use ActivityBundle\Entity\UserActivity;
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use ExamBundle\Entity\Question;
 use LessonBundle\Entity\Language;
 use LessonBundle\Entity\Lesson;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -49,8 +50,10 @@ class ActivityTracking
         $activityRepo = $this->doctrine->getManager()->getRepository('ActivityBundle:UserActivity');
         /** @var UserActivity $activity */
         $activity = $activityRepo->findBy(array('user' => $this->user, 'lesson' => $lesson));
-
-        return $activity->getScore();
+        if (empty($activity)) {
+            return 0;
+        }
+        return $activity[0]->getScore();
     }
 
     /**
@@ -64,12 +67,38 @@ class ActivityTracking
         $numberOfLessons = $lessonRepo->getCountLessons($language);
 
         $userActivityRepo = $this->doctrine->getManager()->getRepository('ActivityBundle:UserActivity');
-        $numberOfFinishedLessons = $userActivityRepo->getCountLessonFinished($language,$this->user);
+        $numberOfFinishedLessons = $userActivityRepo->getCountLessonFinished($language, $this->user);
 
-        if(empty($numberOfFinishedLessons) || empty($numberOfLessons) ){
+        if (empty($numberOfFinishedLessons) || empty($numberOfLessons)) {
             return 0;
         }
 
-        return  floatval($numberOfFinishedLessons/$numberOfLessons * 100);
+        return floatval($numberOfFinishedLessons / $numberOfLessons * 100);
+    }
+
+    /**
+     * Adds the question score to the current activity
+     *
+     * @param Question $question
+     */
+    public function addQuestionToActivity(Question $question)
+    {
+        $currentScore = $this->getExamScore($question->getLesson());
+        $totalScore = $currentScore + $question->getScore();
+        $activityRepo = $this->doctrine->getRepository('ActivityBundle:UserActivity');
+        $activity = $activityRepo->findBy(array('user' => $this->user, 'lesson' => $question->getLesson()));
+        if (empty($activity)) {
+            $activity = new UserActivity();
+            $activity->setUser($this->user);
+            $activity->setLesson($question->getLesson());
+        } else {
+            $activity = $activity[0];
+        }
+        /** @var UserActivity $activity */
+        $activity->setScore($totalScore);
+
+        $this->doctrine->getEntityManager()->persist($activity);
+        $this->doctrine->getEntityManager()->flush();
+
     }
 }

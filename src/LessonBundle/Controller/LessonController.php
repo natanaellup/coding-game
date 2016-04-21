@@ -25,10 +25,19 @@ class LessonController extends Controller
         return $this->render('LessonBundle:Lesson:show.html.twig', array('lesson' => $lesson));
     }
 
-    public function postAnswerAction(Request $request){
-
+    public function postAnswerAction(Request $request)
+    {
         $option = $request->get('option');
         $questionId = $request->get('question_id');
-        return new JsonResponse(array('option' => $option, 'question_id' => $questionId));
+        $lessonsService = $this->get('lesson_bundle.lesson_service');
+        $question = $lessonsService->saveQuestionResponse($questionId, $option);
+        return new JsonResponse(
+            array(
+                'option' => $option,
+                'question_id' => $questionId,
+                'check' => (int)$lessonsService->questionIsCorrect($question, $option),
+                'totalLessonScore' => $lessonsService->getLessonTotalScore($question->getLesson())
+            ));
     }
+
 }
