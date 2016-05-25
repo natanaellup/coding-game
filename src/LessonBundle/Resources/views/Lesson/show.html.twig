@@ -13,15 +13,23 @@
             <form class="lesson-questions">
                 {% for question in lesson.questions %}
                     <li id="question-{{ question.id }}"  class="form-group" data-question-id="{{ question.id }}">
+                        {% set isAnswered = 0 %}
+                    {% if questionService.isCorrectAnswered(question) %}
+                        {% set isAnswered = 1 %}
+                        <div class="loader-wrapper" style="display: block;">
+                            <div class="answer-loader"></div>
+                            <img class="answer-loader-image" src="/images/right.png">
+                        </div>
+                    {% endif %}
                         <div class="loader-wrapper">
                             <div class="answer-loader"></div>
                             <img class="answer-loader-image" src="{{ asset('images/loading.gif') }}">
                         </div>
                         <span class="question-name">{{ question.question }}</span>
-                        <label class="radio-answer"><input class="answer-input" type="radio" value="1" name="answer_id-{{ question.id }}">{{ question.option1 }}</label>
-                        <label class="radio-answer"><input class="answer-input" type="radio" value="2" name="answer_id-{{ question.id }}">{{ question.option2 }}</label>
-                        <label class="radio-answer"><input class="answer-input" type="radio" value="3" name="answer_id-{{ question.id }}">{{ question.option3 }}</label>
-                        <label class="radio-answer"><input class="answer-input" type="radio" value="4" name="answer_id-{{ question.id }}">{{ question.option4 }}</label>
+                        <label class="radio-answer"><input {{ ((question.answer == 1) and (isAnswered == 1)) ? 'checked' : '' }}  class="answer-input" type="radio" value="1" name="answer_id-{{ question.id }}">{{ question.option1 }}</label>
+                        <label class="radio-answer"><input {{ ((question.answer == 2) and (isAnswered == 1)) ? 'checked' : ''}} class="answer-input" type="radio" value="2" name="answer_id-{{ question.id }}">{{ question.option2 }}</label>
+                        <label class="radio-answer"><input {{ ((question.answer == 3) and (isAnswered == 1)) ? 'checked' : '' }} class="answer-input" type="radio" value="3" name="answer_id-{{ question.id }}">{{ question.option3 }}</label>
+                        <label class="radio-answer"><input {{ ((question.answer == 4) and (isAnswered == 1)) ? 'checked' : ''}} class="answer-input" type="radio" value="4" name="answer_id-{{ question.id }}">{{ question.option4 }}</label>
                         <div class="answer-check"></div>
                     </li>
                 {% endfor %}

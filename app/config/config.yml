@@ -109,7 +109,7 @@ fos_user:
 
 # Sonata Admin Configuration
 sonata_admin:
-    title:                  'CodingGame'
+    title: 'CodingGame'
     options:
         pager_links: 10
         html5_validate: false

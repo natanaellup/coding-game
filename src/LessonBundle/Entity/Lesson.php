@@ -19,6 +19,11 @@ class Lesson
     /**
      * @var string
      */
+    private $score_to_unlock;
+
+    /**
+     * @var string
+     */
     private $title;
 
     /**
@@ -73,6 +78,24 @@ class Lesson
     public function setContent($content)
     {
         $this->content = $content;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getScoreToUnlock()
+    {
+        return $this->score_to_unlock;
+    }
+
+    /**
+     * @param string $score_to_unlock
+     * @return Lesson
+     */
+    public function setScoreToUnlock($score_to_unlock)
+    {
+        $this->score_to_unlock = $score_to_unlock;
         return $this;
     }
 

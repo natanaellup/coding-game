@@ -25,6 +25,7 @@ class LessonAdmin extends Admin
                 ->add('title')
                 ->add('language','sonata_type_model_list')
                 ->add('chapter')
+                ->add('score_to_unlock')
                 ->add('content','ckeditor', array(
                     'config_name' => 'my_config',
                 ))

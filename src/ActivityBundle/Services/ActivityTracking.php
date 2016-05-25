@@ -45,7 +45,7 @@ class ActivityTracking
      * @param Lesson $lesson
      * @return float
      */
-    public function getExamScore(Lesson $lesson)
+    public function getLessonScore(Lesson $lesson)
     {
         $activityRepo = $this->doctrine->getManager()->getRepository('ActivityBundle:UserActivity');
         /** @var UserActivity $activity */
@@ -83,7 +83,7 @@ class ActivityTracking
      */
     public function addQuestionToActivity(Question $question)
     {
-        $currentScore = $this->getExamScore($question->getLesson());
+        $currentScore = $this->getLessonScore($question->getLesson());
         $totalScore = $currentScore + $question->getScore();
         $activityRepo = $this->doctrine->getRepository('ActivityBundle:UserActivity');
         $activity = $activityRepo->findBy(array('user' => $this->user, 'lesson' => $question->getLesson()));
@@ -100,5 +100,22 @@ class ActivityTracking
         $this->doctrine->getEntityManager()->persist($activity);
         $this->doctrine->getEntityManager()->flush();
 
+    }
+
+    /**
+     * Returns the total score for a lesson
+     *
+     * @param Language $language
+     * @return float|int
+     */
+    public function getLanguageTotalScore(Language $language){
+        $score = 0;
+        $lessonsRepo = $this->doctrine->getRepository('LessonBundle:Lesson');
+        $lessons = $lessonsRepo->findBy(array('language' => $language));
+        foreach ($lessons as $lesson) {
+            $score += $this->getLessonScore($lesson);
+        }
+
+        return $score;
     }
 }

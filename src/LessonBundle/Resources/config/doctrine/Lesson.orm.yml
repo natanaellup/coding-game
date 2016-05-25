@@ -18,6 +18,9 @@ LessonBundle\Entity\Lesson:
         content:
             type: text
             nullable: false
+        score_to_unlock:
+            type: integer
+            nullable: true
     manyToOne:
         language:
             targetEntity: LessonBundle\Entity\Language

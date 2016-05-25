@@ -1,6 +1,7 @@
 <?php
 namespace LessonBundle\Controller;
 
+use ActivityBundle\Services\ActivityTracking;
 use Doctrine\ORM\EntityRepository;
 use LessonBundle\Entity\Language;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,8 +27,7 @@ class LanguageController extends Controller
         $languageRepo = $this->getDoctrine()->getManager()->getRepository('LessonBundle:Language');
 
         $language = $languageRepo->find($id);
-
-        return $this->render('LessonBundle:Language:show.html.twig', array('language' => $language));
+        return $this->render('LessonBundle:Language:show.html.twig', array('language' => $language, 'activityTracking' => new ActivityTracking($this->getDoctrine(), $this->get('security.token_storage') )));
     }
 
     /**

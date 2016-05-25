@@ -6,3 +6,5 @@ LessonBundle\Entity\Lesson:
             - NotBlank: ~
         language:
             - NotBlank: ~
+        score_to_unlock:
+            - NotBlank: ~

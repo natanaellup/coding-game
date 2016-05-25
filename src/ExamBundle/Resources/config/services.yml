@@ -2,7 +2,7 @@ services:
     exam_bundle.question_admin:
         class: ExamBundle\Admin\QuestionAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, show_in_dashboard: false }
+            - { name: sonata.admin, manager_type: orm, group: "Content management",label: "Exam" }
         arguments:
             - ~
             - ExamBundle\Entity\Question

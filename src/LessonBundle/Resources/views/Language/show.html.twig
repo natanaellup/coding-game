@@ -3,12 +3,21 @@
 {% block content %}
 
     {% set lessons = language.getLessons() %}
+    {% set languageTotalScore = activityTracking.languageTotalScore(lessons[0].getLanguage()) %}
 
     {% for lesson in lessons %}
-        <a href="{{ path('lesson_bundle.show_lesson', {id: lesson.getId(), slugName:lesson.getTitle()|sonata_slugify}) }}">
+        {% if languageTotalScore < lesson.getScoreToUnlock() %}
+            <div class="lesson-blocked">
+                <div class="lesson">
+                    {{ lesson.getChapter() }} . {{ lesson.getTitle() }}
+                </div>
+            </div>
+        {% else %}
+            <a href="{{ path('lesson_bundle.show_lesson', {id: lesson.getId(), slugName:lesson.getTitle()|sonata_slugify}) }}">
         <div class="lesson">
            {{ lesson.getChapter() }} . {{ lesson.getTitle() }}
         </div>
         </a>
+        {% endif %}
     {% endfor %}
 {% endblock %}

@@ -11,7 +11,8 @@ var LessonView = Backbone.View.extend({
     initModal: function (e) {
         $('.form-dialog').dialog({
             resizable: false,
-            height: 400,
+            height: 700,
+            width: 700,
             modal: true
         });
     },
