@@ -1,3 +1,6 @@
 user_bundle.edit_profile:
     path:     /profile/edit
     defaults: { _controller: UserBundle:Profile:edit }
+user_bundle.list_users:
+    path:     /utilizatori
+    defaults: { _controller: UserBundle:UserList:list }
