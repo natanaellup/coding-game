@@ -11,18 +11,16 @@ ActivityBundle\Entity\Badge:
         title:
             type: string
             nullable: false
-        level:
-            type: integer
-            nullable: false
         logoUrl:
             type: string
             nullable: false
-        minXp:
-            type: integer
-            nullable: false
-        maxXp:
-            type: integer
-            nullable: false
+    manyToOne:
+         language:
+            targetEntity: LessonBundle\Entity\Language
+            inversedBy: badges
+            joinColumn:
+              name: language_id
+              referencedColumnName: id
     manyToMany:
         users:
             targetEntity: UserBundle\Entity\User

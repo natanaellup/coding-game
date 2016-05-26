@@ -2,6 +2,7 @@
 
 namespace ActivityBundle\Admin;
 
+use ActivityBundle\Entity\Badge;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -23,9 +24,8 @@ class BadgeAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper->addIdentifier('title')
-            ->add('level')
-            ->add('minXp')
-            ->add('maxXp')
+            ->add('language')
+            ->add('getTypeLabel', null, array('label' => 'Type'))
             ->add('logoUrl', null, array('sortable' => false,'template' => 'AdminOverrideBundle:Admin:avatar_list_field.html.twig'));
     }
 
@@ -35,9 +35,8 @@ class BadgeAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->add('title')
-            ->add('level')
-            ->add('minXp')
-            ->add('maxXp')
+            ->add('language','sonata_type_model_list')
+            ->add('type', 'choice', array('choices' => Badge::getTypeLabels()))
             ->add('logo', 'file',array('image_path' => 'logoUrl', 'image_style' => 'avatar_profile_edit'));
     }
 
@@ -46,10 +45,7 @@ class BadgeAdmin extends Admin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper->add('title')
-                ->add('level')
-                ->add('minXp')
-                ->add('maxXp');
+        $datagridMapper->add('title');
     }
 
     /**

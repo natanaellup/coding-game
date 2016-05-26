@@ -28,6 +28,23 @@ class UserActivity
     private $lesson;
 
     /**
+     * @var \DateTime
+     */
+    private $startDate;
+
+    /**
+     * UserActivity constructor.
+     *
+     * Set current timestamp when persist object.
+     */
+    public function __construct()
+    {
+        if(is_null($this->startDate)){
+            $this->startDate = new \DateTime();
+        }
+    }
+
+    /**
      * @return int
      */
     public function getId()
@@ -89,4 +106,22 @@ class UserActivity
         return $this;
     }
 
+    /**
+     * @return \DateTime
+     */
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * @param $startDate
+     * @return $this
+     */
+    public function setStartDate($startDate)
+    {
+        $this->startDate = $startDate;
+
+        return $this;
+    }
 }

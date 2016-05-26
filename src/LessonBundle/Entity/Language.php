@@ -39,11 +39,48 @@ class Language
     private $lessons;
 
     /**
+     * @var ArrayCollection
+     */
+    private $badges;
+
+
+    public function __construct()
+    {
+        $this->badges = new ArrayCollection();
+    }
+
+    /**
      * @return int
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getBadges()
+    {
+        return $this->badges;
+    }
+
+    public function setBadges($badges)
+    {
+        $this->badges = $badges;
+
+        return $this;
+    }
+
+    public function addBadge($badge)
+    {
+        $this->badges->add($badge);
+
+        return $this;
+    }
+
+    public function removeBadge($badge)
+    {
+        $this->badges->removeElement($badge);
+
+        return $this;
     }
 
     /**

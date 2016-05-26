@@ -20,3 +20,6 @@ LessonBundle\Entity\Language:
           targetEntity: LessonBundle\Entity\Lesson
           mappedBy: language
           orderBy: { 'chapter': 'ASC' }
+        badges:
+          targetEntity: ActivityBundle\Entity\Badge
+          mappedBy: language

@@ -4,11 +4,17 @@ namespace ActivityBundle\Entity;
 
 
 use Doctrine\Common\Collections\ArrayCollection;
+use LessonBundle\Entity\Language;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use UserBundle\Entity\User;
 
 class Badge
 {
+    const THREE_LESSON_MAXIMUM_TYPE = 1;
+    const THREE_LESSON_SAME_DAY =2;
+
+    const THREE_LESSON_MAXIMUM_TYPE_LABEL = "3 lectii cu procentaj maxim";
+    const THREE_LESSON_SAME_DAY_LABEL = "3 lectii complete intr-o zi";
 
     /**
      * @var integer
@@ -19,21 +25,6 @@ class Badge
      * @var string
      */
     private $title;
-
-    /**
-     * @var integer
-     */
-    private $level;
-
-    /**
-     * @var integer
-     */
-    private $minXp;
-
-    /**
-     * @var integer
-     */
-    private $maxXp;
 
     /**
      * @var UploadedFile
@@ -51,9 +42,19 @@ class Badge
     private $oldLogoUrl;
 
     /**
+     * @var integer
+     */
+    private $type;
+
+    /**
      * @var ArrayCollection
      */
     private $users;
+
+    /**
+     * @var Language
+     */
+    private $language;
 
     /**
      * Badge constructor.
@@ -86,60 +87,6 @@ class Badge
     public function setTitle($title)
     {
         $this->title = $title;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLevel()
-    {
-        return $this->level;
-    }
-
-    /**
-     * @param int $level
-     * @return Badge
-     */
-    public function setLevel($level)
-    {
-        $this->level = $level;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMinXp()
-    {
-        return $this->minXp;
-    }
-
-    /**
-     * @param int $minXp
-     * @return Badge
-     */
-    public function setMinXp($minXp)
-    {
-        $this->minXp = $minXp;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getMaxXp()
-    {
-        return $this->maxXp;
-    }
-
-    /**
-     * @param int $maxXp
-     * @return Badge
-     */
-    public function setMaxXp($maxXp)
-    {
-        $this->maxXp = $maxXp;
         return $this;
     }
 
@@ -199,6 +146,18 @@ class Badge
         return $this;
     }
 
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
     /**
      * @param User $user
      * @param bool $updateRelation
@@ -244,6 +203,34 @@ class Badge
     public function getUsers()
     {
         return $this->users;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType($type)
+    {
+        $this->type =$type;
+
+        return $this;
+    }
+
+    public function getTypeLabel()
+    {
+        return $this->getTypeLabels()[$this->getType];
+    }
+
+    /**
+     * @return array
+     */
+    public static function getTypeLabels()
+    {
+        return array(
+            self::THREE_LESSON_MAXIMUM_TYPE => self::THREE_LESSON_MAXIMUM_TYPE_LABEL,
+            self::THREE_LESSON_SAME_DAY => self::THREE_LESSON_SAME_DAY_LABEL
+        );
     }
 
     /**

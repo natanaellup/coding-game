@@ -11,6 +11,9 @@ ActivityBundle\Entity\UserActivity:
         score:
             type: integer
             nullable: false
+        startDate:
+            type: datetime
+            nullable: false
     manyToOne:
         lesson:
             targetEntity: LessonBundle\Entity\Lesson
