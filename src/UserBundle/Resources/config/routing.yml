@@ -4,3 +4,6 @@ user_bundle.edit_profile:
 user_bundle.list_users:
     path:     /utilizatori
     defaults: { _controller: UserBundle:UserList:list }
+user_bundle.show_user:
+    path: /utilizatori/{slugName}/{id}
+    defaults: { _controller: UserBundle:UserList:show }

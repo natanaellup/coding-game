@@ -76,6 +76,16 @@ class ActivityTracking
         return floatval($numberOfFinishedLessons / $numberOfLessons * 100);
     }
 
+    public function getLanguageScore(Language $language, $user = null)
+    {
+        if(is_null($user)){
+            $user = $this->user;
+        }
+
+        $userActivityRepo = $this->doctrine->getManager()->getRepository('ActivityBundle:UserActivity');
+
+        return $userActivityRepo->getLanguageScoreForAnUser($language, $user);
+    }
     /**
      * Adds the question score to the current activity
      *

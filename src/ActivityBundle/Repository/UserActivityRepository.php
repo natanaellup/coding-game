@@ -19,4 +19,15 @@ class UserActivityRepository extends EntityRepository
 
         return $qb->getQuery()->getResult()[0][1];
     }
+
+    public function getLanguageScoreForAnUser(Language $language, User $user)
+    {
+        $qb = $this->createQueryBuilder('userActivity')
+                ->select('sum(userActivity.score)')
+                ->innerJoin('userActivity.lesson', 'lesson')
+                ->where('lesson.language = :language AND userActivity.user = :user');
+        $qb->setParameters(array('language' => $language, 'user' => $user));
+
+        return $qb->getQuery()->getResult()[0][1];
+    }
 }
