@@ -25,7 +25,6 @@ class BadgeAdmin extends Admin
     {
         $listMapper->addIdentifier('title')
             ->add('language')
-            ->add('getTypeLabel', null, array('label' => 'Type'))
             ->add('logoUrl', null, array('sortable' => false,'template' => 'AdminOverrideBundle:Admin:avatar_list_field.html.twig'));
     }
 

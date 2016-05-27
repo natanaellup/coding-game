@@ -10,11 +10,11 @@ use UserBundle\Entity\User;
 
 class Badge
 {
-    const THREE_LESSON_MAXIMUM_TYPE = 1;
-    const THREE_LESSON_SAME_DAY =2;
+    const SPEEDY_TYPE = 1;
+    const MASTER_TYPE =2;
 
-    const THREE_LESSON_MAXIMUM_TYPE_LABEL = "3 lectii cu procentaj maxim";
-    const THREE_LESSON_SAME_DAY_LABEL = "3 lectii complete intr-o zi";
+    const SPEEDY_TYPE_LABEL = "3 lectii cu procentaj maxim";
+    const MASTER_TYPE_LABEL = "3 lectii complete intr-o zi";
 
     /**
      * @var integer
@@ -228,8 +228,8 @@ class Badge
     public static function getTypeLabels()
     {
         return array(
-            self::THREE_LESSON_MAXIMUM_TYPE => self::THREE_LESSON_MAXIMUM_TYPE_LABEL,
-            self::THREE_LESSON_SAME_DAY => self::THREE_LESSON_SAME_DAY_LABEL
+            self::SPEEDY_TYPE => self::SPEEDY_TYPE_LABEL,
+            self::MASTER_TYPE => self::MASTER_TYPE_LABEL
         );
     }
 

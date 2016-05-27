@@ -9,7 +9,10 @@
 namespace ActivityBundle\Services\Badges\ByLanguage;
 
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use LessonBundle\Entity\Language;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use UserBundle\Entity\User;
 
 class BadgeByLanguageKernel
 {
