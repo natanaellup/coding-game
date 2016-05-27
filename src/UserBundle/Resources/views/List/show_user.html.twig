@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h2 class="center"> {{ user.username }} </h2>
+    <img src="{{ asset(user.avatarUrl) }}" height="200px" width="200px">
+
+    <div class="xp">
+        <h4>Experienta</h4>
+        {% for key, languageXp in xp %}
+            <p><strong>{{ key }} :</strong> {{ languageXp }} xp</p>
+        {% endfor %}
+    </div>
+
+    {% if user.badges.count != 0  %}
+        <div class="badges">
+            <h4>Badge-uri</h4>
+            {% for badge in user.badges %}
+                {{ include('UserBundle:List:user_badge.html.twig', {'badge': badge}) }}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
