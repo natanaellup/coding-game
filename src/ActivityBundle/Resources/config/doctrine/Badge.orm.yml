@@ -14,6 +14,9 @@ ActivityBundle\Entity\Badge:
         logoUrl:
             type: string
             nullable: false
+        type:
+            type: smallint
+            nullable: false
     manyToOne:
          language:
             targetEntity: LessonBundle\Entity\Language

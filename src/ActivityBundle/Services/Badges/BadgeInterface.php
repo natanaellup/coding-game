@@ -14,4 +14,5 @@ interface BadgeInterface
 
     public function toArray();
 
+
 }

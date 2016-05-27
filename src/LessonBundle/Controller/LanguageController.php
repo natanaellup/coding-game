@@ -2,6 +2,7 @@
 namespace LessonBundle\Controller;
 
 use ActivityBundle\Services\ActivityTracking;
+use ActivityBundle\Services\Badges\ByLanguage\BadgeByLanguageKernel;
 use Doctrine\ORM\EntityRepository;
 use LessonBundle\Entity\Language;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

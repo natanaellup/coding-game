@@ -4,6 +4,7 @@ namespace ActivityBundle\Services\Badges\ByLanguage;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use LessonBundle\Entity\Language;
+use UserBundle\Entity\User;
 
 /**
  * Date: 5/26/2016
@@ -11,28 +12,38 @@ use LessonBundle\Entity\Language;
  * @copyright (c) Zitec COM
  * @author George Calcea <george.calcea@zitec.com>
  */
-class MainBadge
+abstract class MainBadge
 {
+    protected $name;
+
+    protected $logoUrl;
+
+    /**
+     * Must be implemented into the child classes
+     */
+    const BADGE_TYPE = 0;
 
     /**
      * @var Registry
      */
-    private $doctrine;
+    protected $doctrine;
 
     /**
      * @var TokenStorage
      */
-    private $securityContext;
+    protected $securityContext;
 
     /**
      * @var User
      */
-    private $user;
+    protected $user;
 
     /**
      * @var Language
      */
-    private $language;
+    protected $language;
+
+    protected $badgeId = null;
 
     /**
      * ActivityTracking constructor.
@@ -46,6 +57,35 @@ class MainBadge
         $this->securityContext = $securityContext;
         $this->user = $securityContext->getToken()->getUser();
         $this->language = $language;
+        $this->badgeId = $this->getBadgeId();
+        $this->initBadge();
+    }
+
+    protected function initBadge()
+    {
+        $badgesRepository = $this->doctrine->getRepository('ActivityBundle:Badge');
+        $currentBadge = $badgesRepository->find($this->badgeId);
+        if (!empty($currentBadge)) {
+            $this->logoUrl = $currentBadge->getLogoUrl();
+            $this->name = $currentBadge->getTitle();
+        }
+    }
+
+    public function save()
+    {
+        $badgesRepository = $this->doctrine->getRepository('ActivityBundle:Badge');
+        $currentBadge = $badgesRepository->find($this->badgeId);
+        $this->user->addBadge($currentBadge);
+        $this->doctrine->getManager()->persist($this->user);
+        $this->doctrine->getManager()->flush();
+    }
+
+    protected function getBadgeId()
+    {
+        $badgeRepo = $this->doctrine->getRepository("ActivityBundle:Badge");
+        $badge = $badgeRepo->findBy(array("type" => static::BADGE_TYPE, "language" => $this->language))[0];
+
+        return $badge->getId();
     }
 
 }
