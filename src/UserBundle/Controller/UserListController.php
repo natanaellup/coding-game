@@ -15,9 +15,12 @@ class UserListController extends Controller
         $users = $userRepo->findAll();
 
         $xp = $this->calculateXp($users);
+        foreach ($xp as $userId => $xpUser) {
+         $encodeXp[$userId] = json_encode($xpUser);
+        }
         $badges = $this->getBadges($users);
 
-        return $this->render('UserBundle:List:list_users.html.twig',array('users' => $users, 'xp' => $xp, 'badges' => $badges));
+        return $this->render('UserBundle:List:list_users.html.twig', array('users' => $users, 'xp' => $encodeXp, 'badges' => $badges));
     }
 
     public function showAction(Request $request, $id)
@@ -25,41 +28,58 @@ class UserListController extends Controller
         $user = $this->getDoctrine()->getManager()->getRepository('UserBundle:User')->find($id);
         $arrayWithUser[] = $user;
         $xp = $this->calculateXp($arrayWithUser);
-        $badges = $this->getBadges($arrayWithUser);
 
-
+        return $this->render('UserBundle:List:show_user.html.twig', array('user' => $user, 'xp' => $xp[$user->getId()]));
     }
+
 
     protected function getBadges($users)
     {
         $badges = array();
-        foreach($users as $user){
+        foreach ($users as $user) {
             $userBadges = $user->getBadges();
-
-            foreach($userBadges as $badge){
+            $badgesTemp = array();
+            foreach ($userBadges as $badge) {
                 $tempArr['badge_language'] = $badge->getLanguage()->getName();
                 $tempArr['badge_title'] = $badge->getTitle();
                 $tempArr['badge_logo_url'] = $badge->getLogoUrl();
-                $badges[$user->getId()][] = json_encode($tempArr);
+                $badgesTemp[] = $tempArr;
             }
+
+            $badges[$user->getId()] = json_encode($badgesTemp);
         }
 
         return $badges;
     }
 
+    /**
+     * Calculate user experience for each language.
+     *
+     * @param $users
+     * @return array
+     */
     protected function calculateXp($users)
     {
         $xp = array();
+        $languages = $this->getDoctrine()->getManager()->getRepository('LessonBundle:Language')->findAll();
+
         foreach ($users as $user) {
             $userId = $user->getId();
             $xp[$user->getId()] = array();
             $activityTracking = $this->get('activity_bundle.services.activity_tracking');
+
             foreach ($user->getActivities() as $activity) {
                 $language = $activity->getLesson()->getLanguage();
                 if (!array_key_exists($language->getName(), $xp[$user->getId()])) {
                     $xp[$userId][$language->getName()] = $activityTracking->getLanguageScore($language, $user);
                 } else {
                     $xp[$userId][$language->getName()] += $activityTracking->getLanguageScore($language, $user);
+                }
+            }
+
+            foreach ($languages as $language) {
+                if (!array_key_exists($language->getName(), $xp[$user->getId()])) {
+                    $xp[$userId][$language->getName()] = 0;
                 }
             }
         }

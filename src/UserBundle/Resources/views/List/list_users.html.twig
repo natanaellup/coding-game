@@ -1,3 +1,19 @@
-{{ dump(xp) }}
-{{ dump(badges) }}
-{{ dump(users) }}
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="users">
+        {% for user in users %}
+            <div class="user">
+                <a href="{{ path('user_bundle.show_user', {slugName: user.username|sonata_slugify, id: user.id}) }}">
+                    <img class="image" src="{{ asset(user.avatarUrl) }}" width="200px" height="200px">
+                    <div class="user-information">
+                        <h4>{{ user.username }}</h4>
+                        <div class="info" data-badges="{{ badges[user.id] }}" data-xp="{{ xp[user.id] }}">
+                        </div>
+                    </div>
+
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -10,18 +10,18 @@
     padding: 10px 0px 10px 0px;
 }
 
-.author {
+.user {
     float: left;
     margin-right: 10px;
     margin-top: 10px;
 }
 
-.author:hover {
+.user:hover {
     background-color: #eaeaea;
     color: #0d70b7;
 }
 
-.author a:hover {
+.user a:hover {
     text-decoration: none;
     cursor: default;
 }
@@ -34,12 +34,12 @@
     text-align: center;
 }
 
-.author-information {
+.user-information {
     margin-top: 10px;
     border: 1px solid #d3d8e1;
 }
 
-.author-information .image {
+.user-information .image {
     float: left;
     border: 2px solid #FFFFFF;
     border-radius: 5px 5px 5px 5px;
@@ -47,7 +47,7 @@
     margin: 0 10px;
 }
 
-.author-information .author-description {
+.user-information .user-description {
     padding-left: 10px;
 }
 
