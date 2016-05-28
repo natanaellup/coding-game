@@ -1,26 +1,30 @@
 {% extends 'base.html.twig' %}
-
 {% block content %}
 
     <div class="languages-show-all">
-        {% for language in languages %}
-            <a href="{{ path('lesson_bundle.show_language', { id: language.id, slugName: language.getName()|sonata_slugify }) }}">
-                <div class="language-logo">
-                    <img src="{{ asset(language.getLogoUrl)|imagine_filter('show_all_language_logo') }}">
-                </div>
-                <div class="language-details">
-                    <div class="language-name">
-                        <h4>{{ language.getName }}</h4>
-                    </div>
-                    <div class="language-no-lesson">
-                        <p>{{ language.getLessons|length }} lectii</p>
-                    </div>
-                    <div class="language-percentage">
-                        {{ scores[language.id] |number_format(2,'.') }}
-                    </div>
-                </div>
-            </a>
-        {% endfor %}
+        <ul class="languages">
+            {% for language in languages %}
+                <li>
+
+                    <a href="{{ path('lesson_bundle.show_language', { id: language.id, slugName: language.getName()|sonata_slugify }) }}">
+                        <div class="language-logo">
+                            <img src="{{ asset(language.getLogoUrl)|imagine_filter('show_all_language_logo') }}">
+                        </div>
+                        <div class="language-details">
+                            <div class="language-name">
+                                <h4>{{ language.getName }}</h4>
+                            </div>
+                            <div class="language-no-lesson">
+                                <p>{{ language.getLessons|length }} lectii</p>
+                            </div>
+                            <div class="language-percentage">
+                                <p>{{ scores[language.id] |number_format(2,'.') }} xp</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 
 {% endblock %}

@@ -1,23 +1,39 @@
 {% extends 'base.html.twig' %}
 
+
+
 {% block content %}
 
     {% set lessons = language.getLessons() %}
     {% set languageTotalScore = activityTracking.languageTotalScore(lessons[0].getLanguage()) %}
+    <ul class="lessons">
 
-    {% for lesson in lessons %}
-        {% if languageTotalScore < lesson.getScoreToUnlock() %}
-            <div class="lesson-blocked">
-                <div class="lesson">
-                    {{ lesson.getChapter() }} . {{ lesson.getTitle() }}
-                </div>
-            </div>
-        {% else %}
-            <a href="{{ path('lesson_bundle.show_lesson', {id: lesson.getId(), slugName:lesson.getTitle()|sonata_slugify}) }}">
-        <div class="lesson">
-           {{ lesson.getChapter() }} . {{ lesson.getTitle() }}
-        </div>
-        </a>
-        {% endif %}
-    {% endfor %}
+        {% for lesson in lessons %}
+            <li>
+
+                {% if languageTotalScore < lesson.getScoreToUnlock() %}
+                    <div class="lesson-blocked" data-score_to_unlock="{{ lesson.getScoreToUnlock() }}" data-total_score="{{ languageTotalScore }}">
+                        <div class="lesson">
+                            {{ lesson.getChapter() }} . {{ lesson.getTitle() }}
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{{ path('lesson_bundle.show_lesson', {id: lesson.getId(), slugName:lesson.getTitle()|sonata_slugify}) }}">
+                        <div class="lesson">
+                            {{ lesson.getChapter() }} . {{ lesson.getTitle() }}
+                        </div>
+                    </a>
+                {% endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@LessonBundle/Resources/public/js/views/LessonsList.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

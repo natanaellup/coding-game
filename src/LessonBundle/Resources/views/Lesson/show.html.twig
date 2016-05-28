@@ -8,7 +8,7 @@
         <div class="lesson-content">
             {{ lesson.content|raw }}
         </div>
-        <button data-lesson-id="{{ lesson.id }}" class="init-test">Verifica-ti cunostintele</button>
+        <button data-lesson-id="{{ lesson.id }}" class="init-test btn-danger btn-lg">Verifica-ti cunostintele</button>
         <div class="form-dialog">
             <form class="lesson-questions">
                 {% for question in lesson.questions %}

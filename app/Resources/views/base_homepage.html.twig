@@ -24,7 +24,6 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <link rel="stylesheet" href="{{ asset('fonts/css/font-awesome.css') }}">
-    <link rel="stylesheet" href="{{ asset('libs/css/tooltipster.css') }}">
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -33,35 +32,37 @@
 </head>
 <body>
 
-    {% include "::header_pages.html.twig" %}
+{% block header %}{% endblock %}
+{% block menu %}{% endblock %}
+{% block slider %}{% endblock %}
 
 <div class="main_bg"><!-- start main -->
     <div class="container">
-    {% block admin_bar %}
+        {% block admin_bar %}
 
-    {% endblock %}
+        {% endblock %}
 
-    {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
     </div>
 </div>
 {% include "::footer.html.twig" %}
 {% block javascript_libs %}
     {% javascripts output='compiled/js/libs.js' filter="?jsqueeze"
-        '@jquery'
-        '@jquery_ui'
-        '@underscore'
-        '@backbone'
-        '@modernizr'
-        '@cslider'
-        '@owl_js'
+    '@jquery'
+    '@jquery_ui'
+    '@underscore'
+    '@backbone'
+    '@bootstrap_js'
+    '@modernizr'
+    '@cslider'
+    '@owl_js'
     %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
 {% block javascripts %}
     {% javascripts
-        'js/app.js'
-        'libs/js/jquery.tooltipster.min.js'
+    'js/app.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
