@@ -13,14 +13,12 @@ var LessonModel = Backbone.Model.extend({
             dataType: "json"
         });
         request.done(function (data) {
-            console.log(data);
             if (typeof successCallback === "function") {
                 successCallback(data);
             }
         });
 
         request.fail(function (data) {
-            console.log(data);
             if (typeof errorCallback === "function") {
                 errorCallback(data);
             }

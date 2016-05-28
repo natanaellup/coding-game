@@ -4,6 +4,7 @@ namespace ActivityBundle\Services\Badges\ByLanguage;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use LessonBundle\Entity\Language;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use UserBundle\Entity\User;
 
 /**
@@ -45,6 +46,8 @@ abstract class MainBadge
 
     protected $badgeId = null;
 
+    protected $isNew = true;
+
     /**
      * ActivityTracking constructor.
      *
@@ -75,6 +78,10 @@ abstract class MainBadge
     {
         $badgesRepository = $this->doctrine->getRepository('ActivityBundle:Badge');
         $currentBadge = $badgesRepository->find($this->badgeId);
+        if ($this->user->hasBadge($currentBadge)) {
+            $this->isNew = false;
+            return;
+        }
         $this->user->addBadge($currentBadge);
         $this->doctrine->getManager()->persist($this->user);
         $this->doctrine->getManager()->flush();
@@ -86,6 +93,11 @@ abstract class MainBadge
         $badge = $badgeRepo->findBy(array("type" => static::BADGE_TYPE, "language" => $this->language))[0];
 
         return $badge->getId();
+    }
+
+    public function isNew()
+    {
+        return $this->isNew;
     }
 
 }

@@ -35,6 +35,17 @@
                 {% endfor %}
             </form>
         </div>
+
+        <div class="badge-modal">
+            <div class="badge-group">
+                <div class="badge-logo">
+                    <img src="">
+                </div>
+                <div class="badge-name"></div>
+                <div class="badge-message"></div>
+            </div>
+        </div>
+
     </div>
 
 {% endblock %}
@@ -43,6 +54,7 @@
     {{ parent() }}
     {% javascripts
     '@LessonBundle/Resources/public/js/views/LessonView.js'
+    '@LessonBundle/Resources/public/js/views/DisplayBadge.js'
     '@LessonBundle/Resources/public/js/models/LessonModel.js'
     '@LessonBundle/Resources/public/js/services/LessonService.js'%}
     <script type="text/javascript" src="{{ asset_url }}"></script>

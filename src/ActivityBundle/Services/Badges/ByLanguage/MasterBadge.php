@@ -28,12 +28,12 @@ class MasterBadge extends MainBadge implements BadgeInterface
         $totalScore = $this->getTotalScoreByActivities($activities);
         foreach ($this->language->getLessons() as $lesson) {
             /* @var $lesson Lesson */
-            if ($lesson->getScoreToUnlock() > $scoreUntilToday && $lesson->getScoreToUnlock() <= $totalScore) {
+            if ($lesson->getScoreToUnlock() != 0 && $lesson->getScoreToUnlock() > $scoreUntilToday && $lesson->getScoreToUnlock() <= $totalScore) {
                 $lessonUnlocked++;
             }
         }
-
         if ($lessonUnlocked >= self::LESSON_TO_UNLOCK) {
+            $this->save();
             return true;
         }
         return false;
@@ -44,7 +44,8 @@ class MasterBadge extends MainBadge implements BadgeInterface
         return [
             'name' => $this->name,
             'logo_url' => $this->logoUrl,
-            'language' => $this->language->getName()
+            'language' => $this->language->getName(),
+            'message' => ''
         ];
     }
 

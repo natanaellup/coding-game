@@ -290,5 +290,10 @@ class User extends BaseUser
 
         return $this;
     }
+
+    public function hasBadge(Badge $badge){
+        return $this->badges->contains($badge);
+    }
+
 }
 

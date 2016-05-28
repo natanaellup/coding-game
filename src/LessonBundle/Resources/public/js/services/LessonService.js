@@ -12,10 +12,12 @@ var lessonService = (function () {
 
     LessonService.prototype.model = null;
     LessonService.prototype.view = null;
+    LessonService.prototype.displayBadgesView = null;
 
     LessonService.prototype.init = function () {
         this.view = new LessonView();
         this.model = new LessonModel();
+        this.displayBadgesView = new DisplayBadge();
     };
 
     LessonService.prototype.bindActions = function () {
@@ -56,6 +58,9 @@ var lessonService = (function () {
     };
 
     LessonService.prototype.successPostAnswerCallback = function (questionId, data) {
+        if(typeof data.badges !== "undefined" && Object.keys(data.badges).length > 0){
+            this.displayBadgesView.render(data.badges);
+        }
         this.view.renderSuccessPostAnswer(questionId, data);
     };
 

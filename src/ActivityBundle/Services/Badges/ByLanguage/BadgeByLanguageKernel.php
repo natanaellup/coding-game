@@ -68,7 +68,7 @@ class BadgeByLanguageKernel
         $badges = array();
         foreach ($this->badges as $badge) {
             /* @var $badge MasterBadge | SpeedyBadge */
-            if ($badge->isAvailable()) {
+            if ($badge->isAvailable() && $badge->isNew()) {
                 $badges[] = $badge->toArray();
             }
         }

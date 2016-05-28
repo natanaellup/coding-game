@@ -46,10 +46,11 @@ class UserActivityRepository extends EntityRepository
 
     public function getActivitiesByLanguage(Language $language)
     {
+        
         $queryBuilder = $this->createQueryBuilder("userActivity")
             ->select("userActivity")
             ->where("userActivity.lesson in (:lessons)")
-            ->setParameter("lessons", $language->getLessons());
+            ->setParameter("lessons", $language->getLessons()->toArray());
 
         return $queryBuilder->getQuery()->getResult();
     }

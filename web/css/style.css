@@ -85,3 +85,17 @@
 label.radio-answer {
     width: 100%;
 }
+
+.badge-modal{
+    display: none;
+}
+
+.badge-modal img{
+    width: 200px;
+    height: 200px;
+}
+
+.badge-group{
+    float: left;
+    padding-left: 10px;
+}

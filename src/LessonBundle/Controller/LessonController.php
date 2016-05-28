@@ -10,6 +10,7 @@ namespace LessonBundle\Controller;
 
 
 use ActivityBundle\Services\ActivityTracking;
+use ActivityBundle\Services\Badges\ByLanguage\BadgeByLanguageKernel;
 use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 use LessonBundle\Entity\Lesson;
 use LessonBundle\Services\QuestionService;
@@ -43,12 +44,16 @@ class LessonController extends Controller
         $questionId = $request->get('question_id');
         $lessonsService = $this->get('lesson_bundle.lesson_service');
         $question = $lessonsService->saveQuestionResponse($questionId, $option);
+        $language = $question->getLesson()->getLanguage();
+        $badgeByLanguage = new BadgeByLanguageKernel($this->getDoctrine(), $this->get('security.token_storage'), $language);
+
         return new JsonResponse(
             array(
                 'option' => $option,
                 'question_id' => $questionId,
                 'check' => (int)$lessonsService->questionIsCorrect($question, $option),
-                'totalLessonScore' => $lessonsService->getLessonTotalScore($question->getLesson())
+                'totalLessonScore' => $lessonsService->getLessonTotalScore($question->getLesson()),
+                'badges' => $badgeByLanguage->getTodayActiveBadges()
             ));
     }
 

@@ -28,8 +28,9 @@ class SpeedyBadge extends MainBadge implements BadgeInterface
     {
         $lessonsCompletedToday = 0;
         $lessonsStartedToday = $this->getAllLessonsStartedToday();
+
         foreach ($lessonsStartedToday as $activity) {
-            if ($activity->getLesson()->getLanguage() !== $this->language) {
+            if ($activity->getLesson()->getLanguage() != $this->language) {
                 continue;
             }
             $totalLessonScore = $this->getLessonTotalScore($activity->getLesson());
@@ -38,6 +39,7 @@ class SpeedyBadge extends MainBadge implements BadgeInterface
                 $lessonsCompletedToday++;
             }
         }
+
         if ($lessonsCompletedToday >= self::MIN_LANGUAGES_COMPLETED_TODAY) {
             $this->save();
             return true;
@@ -53,7 +55,8 @@ class SpeedyBadge extends MainBadge implements BadgeInterface
         return [
             'name' => $this->name,
             'logo_url' => $this->logoUrl,
-            'language' => $this->language->getName()
+            'language' => $this->language->getName(),
+            'message' => ''
         ];
     }
 

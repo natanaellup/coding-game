@@ -2,14 +2,7 @@
 <project version="4">
   <component name="PublishConfigData">
     <serverData>
-      <paths name="api.b2b.local">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
-          </mappings>
-        </serverdata>
-      </paths>
-      <paths name="b2b.local">
+      <paths name="reviews-box">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
