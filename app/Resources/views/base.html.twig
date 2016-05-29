@@ -5,9 +5,9 @@
 
     {% block stylesheet_libs %}
         {% stylesheets filter='cssrewrite' output='compiled/css/libs.css'
-        '@bootstrap'
-        '@jquery_ui_style'
-        '@slider'
+        'libs/css/bootstrap.css'
+        'libs/css/jquery-ui.min.css'
+        'libs/css/slider.css'
         %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
@@ -46,12 +46,12 @@
 {% include "::footer.html.twig" %}
 {% block javascript_libs %}
     {% javascripts output='compiled/js/libs.js' filter="?jsqueeze"
-        '@jquery'
-        '@jquery_ui'
-        '@underscore'
-        '@backbone'
-        '@modernizr'
-        '@cslider'
+        'libs/js/jquery-1.11.0.min.js'
+        'libs/js/jquery-ui.min.js'
+        'libs/js/underscore.js'
+        'libs/js/backbone.js'
+        'libs/js/modernizr.custom.28468.js'
+        'libs/js/jquery.cslider.js'
     %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
