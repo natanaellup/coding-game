@@ -1198,3 +1198,32 @@ body {
 .lesson-details{
     font-size: 15px;
 }
+
+.user-tooltip-wrapper img{
+    max-width: 120px;
+    max-height: 120px;
+}
+
+.user-tooltip-wrapper ul li{
+    display: block;
+}
+
+.user-tooltip-wrapper ul li span{
+    padding-left: 10px;
+}
+.inactive-badge img {
+    opacity: 0.4;
+    filter: alpha(opacity=40); /* msie */
+}
+.tooltipster-shadow {
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 0px 0px 14px rgba(0,0,0,0.3);
+    color: #2c2c2c;
+}
+.tooltipster-shadow .tooltipster-content {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 8px 10px;
+}

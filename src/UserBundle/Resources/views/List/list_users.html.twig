@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <div class="all-badges" data-all_badges="{{ allBadges }}"></div>
     <div class="main row users">
         {% for user in users %}
-            <div class="col-md-3 images_1_of_4 text-center">
+            <div class="col-md-3 images_1_of_4 text-center user">
                 <span class="bg"><img src="{{ asset(user.avatarUrl) }}" height="120px" width="120px" class="img-circle"></span>
                 <h4>
                     <a href="{{ path('user_bundle.show_user', {slugName: user.username|sonata_slugify, id: user.id}) }}">{{ user.username }}</a>
