@@ -10,13 +10,15 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
+
+        {% set route = app.request.attributes.get('_route') %}
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{{ path('activity_homepage') }}">Acasa</a></li>
-                <li><a href="{{ path('lesson_bundle.show_all_languages') }}">Limbaje</a></li>
-                <li><a href="{{ path('user_bundle.list_users') }}">Utilizatori</a></li>
-                <li><a href="{{ path('user_bundle.show_ranking') }}">Clasament</a></li>
+                <li class="{{ (route == 'activity_homepage') ? 'active' : '' }}"><a href="{{ path('activity_homepage') }}">Acasa</a></li>
+                <li class="{{ (route == 'lesson_bundle.show_all_languages') ? 'active' : '' }}"><a href="{{ path('lesson_bundle.show_all_languages') }}">Limbaje</a></li>
+                <li class="{{ (route == 'user_bundle.list_users') ? 'active' : '' }}"><a href="{{ path('user_bundle.list_users') }}">Utilizatori</a></li>
+                <li class="{{ (route == 'user_bundle.show_ranking') ? 'active' : '' }}"><a href="{{ path('user_bundle.show_ranking') }}">Clasament</a></li>
                 {#<li><a href="about.html">About</a></li>#}
                 {#<li><a href="blog.html">Blog</a></li>#}
                 {#<li><a href="contact.html">Contact</a></li>#}

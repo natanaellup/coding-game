@@ -2,6 +2,7 @@
 
 namespace UserBundle\Controller;
 
+use ActivityBundle\Entity\Badge;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,11 +17,13 @@ class UserListController extends Controller
 
         $xp = $this->calculateUsersXp($users);
         foreach ($xp as $userId => $xpUser) {
-         $encodeXp[$userId] = json_encode($xpUser);
+            $encodeXp[$userId] = json_encode($xpUser);
         }
         $badges = $this->getBadges($users);
 
-        return $this->render('UserBundle:List:list_users.html.twig', array('users' => $users, 'xp' => $encodeXp, 'badges' => $badges));
+
+        return $this->render('UserBundle:List:list_users.html.twig',
+            array('users' => $users, 'xp' => $encodeXp, 'badges' => $badges, 'allBadges' => json_encode($this->getAllBadges())));
     }
 
     public function showAction(Request $request, $id)
@@ -31,6 +34,21 @@ class UserListController extends Controller
         return $this->render('UserBundle:List:show_user.html.twig', array('user' => $user, 'xp' => $userXp));
     }
 
+    protected function getAllBadges()
+    {
+        $data = [];
+        $allBadges = $this->getDoctrine()->getRepository("ActivityBundle:Badge")->findAll();
+        foreach ($allBadges as $badge) {
+            $data[$badge->getId()] = [
+                'badge_language' => $badge->getLanguage()->getName(),
+                'badge_title' => $badge->getTitle(),
+                'badge_logo_url' => $badge->getLogoUrl(),
+                'badge_id' => $badge->getId()
+            ];
+        }
+        return $data;
+    }
+
 
     protected function getBadges($users)
     {
@@ -39,10 +57,12 @@ class UserListController extends Controller
             $userBadges = $user->getBadges();
             $badgesTemp = array();
             foreach ($userBadges as $badge) {
+                /* @var $badge Badge */
                 $tempArr['badge_language'] = $badge->getLanguage()->getName();
                 $tempArr['badge_title'] = $badge->getTitle();
                 $tempArr['badge_logo_url'] = $badge->getLogoUrl();
-                $badgesTemp[] = $tempArr;
+                $tempArr['badge_id'] = $badge->getId();
+                $badgesTemp[$badge->getId()] = $tempArr;
             }
 
             $badges[$user->getId()] = json_encode($badgesTemp);
@@ -62,7 +82,7 @@ class UserListController extends Controller
         $usersXp = array();
         $usersXpService = $this->get('userbundle.user_experience');
 
-        foreach($users as $user){
+        foreach ($users as $user) {
             $usersXp[$user->getId()] = $usersXpService->getXpForAnUser($user);
         }
 
