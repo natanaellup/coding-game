@@ -17,9 +17,15 @@ class LanguageController extends Controller
         $languageRepo = $this->getDoctrine()->getManager()->getRepository('LessonBundle:Language');
 
         $languages = $languageRepo->findAll();
-        $scores = $this->mappedScoreForLanguage($languages);
 
-        return $this->render('LessonBundle:Language:show_all.html.twig',array( 'scores'=> $scores,'languages' => $languages));
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $twigParameters = array('languages' => $languages);
+        if(!is_null($user) && $user != 'anon.'){
+            $scores = $this->mappedScoreForLanguage($languages);
+            $twigParameters['scores'] = $scores;
+        }
+
+        return $this->render('LessonBundle:Language:show_all.html.twig',$twigParameters);
     }
 
     public function showAction(Request $request, $id)

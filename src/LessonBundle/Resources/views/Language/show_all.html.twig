@@ -17,9 +17,11 @@
                             <div class="language-no-lesson">
                                 <p>{{ language.getLessons|length }} lectii</p>
                             </div>
-                            <div class="language-percentage">
-                                <p>{{ scores[language.id] |number_format(2,'.') }} xp</p>
-                            </div>
+                            {% if score is defined %}
+                                <div class="language-percentage">
+                                    <p>{{ scores[language.id] |number_format(2,'.') }} xp</p>
+                                </div>
+                            {% endif %}
                         </div>
                     </a>
                 </li>
