@@ -1,9 +1,6 @@
 var UsersList = Backbone.View.extend({
     el: '.users',
-    allBadges: null,
     initialize: function () {
-        this.allBadges = $('.all-badges').data('all_badges');
-        console.log(this.allBadges);
         this.initTooltips();
     },
     initTooltips: function () {
@@ -14,29 +11,36 @@ var UsersList = Backbone.View.extend({
     },
     initTooltipByUser: function (user) {
         user.tooltipster({
-            content: this.getTooltipContent(user)
+            content: this.getTooltipContent(user),
+            position: "right",
+            theme: "tooltipster-shadow"
         });
     },
     getTooltipContent: function (user) {
         var userBadges = user.find('.info').data('badges');
         var userXp = user.find('.info').data('xp');
         var wrapper = $("<div></div>").addClass('user-tooltip-wrapper');
-        var ul = $('<ul></ul>');
-        wrapper.append(ul);
 
-        $.each(this.allBadges, function (index, value) {
-            var badge = $("<div></div>");
-            if (typeof userBadges[index] === "undefined") {
-                badge.addClass("inactive-badge");
-            } else {
-                badge.addClass("active-badge");
-            }
-            var img = $('<img>').attr('src', "/" + badge.badge_logo_url);
-            var name = $('<span></span>').text(badge.badge_title);
-            ul.append($("<li></li>").append(img).append(name));
+        wrapper.append($("<p></p>").text("Experienta (XP):").css("font-weight", "bold"));
+        $.each(userXp, function(index, value){
+            wrapper.append($("<li></li>").text(index + " : " + value + " xp"));
         });
 
-        return wrapper.innerHTML;
+        if(Object.keys(userBadges).length <= 0){
+            return wrapper;
+        }
+        wrapper.append($("<p></p>").text("Insigne obtinute:").css("font-weight", "bold"));
+        $.each(userBadges, function (index, value) {
+            var badge = $("<div></div>");
+            var ul = $('<ul></ul>');
+            badge.append(ul);
+            var img = $('<img>').attr('src', "/" + value.badge_logo_url).addClass('img-circle');
+            var name = $('<span></span>').text(value.badge_title);
+            ul.append($("<li></li>").append(img).append(name));
+            wrapper.append(badge);
+        });
+
+        return wrapper;
     }
 
 });

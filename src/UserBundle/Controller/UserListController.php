@@ -23,7 +23,7 @@ class UserListController extends Controller
 
 
         return $this->render('UserBundle:List:list_users.html.twig',
-            array('users' => $users, 'xp' => $encodeXp, 'badges' => $badges, 'allBadges' => json_encode($this->getAllBadges())));
+            array('users' => $users, 'xp' => $encodeXp, 'badges' => $badges));
     }
 
     public function showAction(Request $request, $id)
@@ -33,22 +33,6 @@ class UserListController extends Controller
 
         return $this->render('UserBundle:List:show_user.html.twig', array('user' => $user, 'xp' => $userXp));
     }
-
-    protected function getAllBadges()
-    {
-        $data = [];
-        $allBadges = $this->getDoctrine()->getRepository("ActivityBundle:Badge")->findAll();
-        foreach ($allBadges as $badge) {
-            $data[$badge->getId()] = [
-                'badge_language' => $badge->getLanguage()->getName(),
-                'badge_title' => $badge->getTitle(),
-                'badge_logo_url' => $badge->getLogoUrl(),
-                'badge_id' => $badge->getId()
-            ];
-        }
-        return $data;
-    }
-
 
     protected function getBadges($users)
     {
