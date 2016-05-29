@@ -1,6 +1,34 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    {{ dump(users) }}
-    {{ dump(xp) }}
+
+    <h1 class="center text-center">Clasament</h1>
+
+    <div class="ranking-table">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="ranking-head">
+                <tr>
+                    <td>#</td>
+                    {% for language in languages %}
+                        <td>{{ language.name }}</td>
+                    {% endfor %}
+                    <td>Total</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for userName,userXp in xp %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('user_bundle.show_user', {slugName: userName|sonata_slugify, id: usersId[userName]}) }}">{{ userName }}</a>
+                        </td>
+                        {% for languageXp in userXp %}
+                            <td>{{ languageXp }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

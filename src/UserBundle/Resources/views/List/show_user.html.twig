@@ -16,7 +16,7 @@
 
     {% if user.badges.count != 0 %}
         <div class="badges-section">
-            <h3 class="text-center">Badge-uri</h3>
+            <h3 class="text-center">Insigne</h3>
             <div class="badges-elements">
                 {% for badge in user.badges %}
                     {{ include('UserBundle:List:user_badge.html.twig', {'badge': badge}) }}

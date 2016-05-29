@@ -111,6 +111,13 @@ label.radio-answer {
     margin-top: 20px;
 }
 
+.ranking-table{
+    font-size: 125%;
+}
+.ranking-head{
+    font-weight: bold;
+}
+
 /*
 Author: W3layout
 Author URL: http://w3layouts.com
