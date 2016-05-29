@@ -5,7 +5,7 @@
 {% block content %}
 
     {% set lessons = language.getLessons() %}
-    {% set languageTotalScore = activityTracking.languageTotalScore(lessons[0].getLanguage()) %}
+    {% set languageTotalScore = activityTracking.languageTotalScore(lessons[0].getLanguage(), app.user) %}
     <ul class="lessons">
 
         {% for lesson in lessons %}

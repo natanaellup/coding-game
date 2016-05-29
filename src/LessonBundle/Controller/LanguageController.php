@@ -21,7 +21,7 @@ class LanguageController extends Controller
         $user = $this->container->get('security.context')->getToken()->getUser();
         $twigParameters = array('languages' => $languages);
         if(!is_null($user) && $user != 'anon.'){
-            $scores = $this->mappedScoreForLanguage($languages);
+            $scores = $this->mappedScoreForLanguage($languages, $user);
             $twigParameters['scores'] = $scores;
         }
 
@@ -34,7 +34,8 @@ class LanguageController extends Controller
         $languageRepo = $this->getDoctrine()->getManager()->getRepository('LessonBundle:Language');
 
         $language = $languageRepo->find($id);
-        return $this->render('LessonBundle:Language:show.html.twig', array('language' => $language, 'activityTracking' => new ActivityTracking($this->getDoctrine(), $this->get('security.token_storage') )));
+        return $this->render('LessonBundle:Language:show.html.twig', array('language' => $language,
+            'activityTracking' => new ActivityTracking($this->getDoctrine(), $this->get('security.token_storage') )));
     }
 
     /**
@@ -42,14 +43,14 @@ class LanguageController extends Controller
      *
      * @return array
      */
-    private function mappedScoreForLanguage($languages)
+    private function mappedScoreForLanguage($languages, $user)
     {
         $activityService = $this->get('activity_bundle.services.activity_tracking');
         $languageScores = array();
         /** @var Language $language */
         foreach($languages as $language)
         {
-            $languageScores[$language->getId()] = $activityService->getLanguagePercentage($language);
+            $languageScores[$language->getId()] = $activityService->getLanguagePercentage($language, $user);
         }
 
         return $languageScores;

@@ -22,34 +22,28 @@ class ActivityTracking
     private $securityContext;
 
     /**
-     * @var User
-     */
-    private $user;
-
-    /**
      * ActivityTracking constructor.
      *
      * @param Registry $doctrine
-     * @param TokenStorage $securityContext
      */
     public function __construct(Registry $doctrine, TokenStorage $securityContext)
     {
         $this->doctrine = $doctrine;
         $this->securityContext = $securityContext;
-        $this->user = $securityContext->getToken()->getUser();
     }
 
     /**
      * Return score for an exam for current user.
      *
      * @param Lesson $lesson
-     * @return float
+     * @param User $user
+     * @return int
      */
-    public function getLessonScore(Lesson $lesson)
+    public function getLessonScore(Lesson $lesson, User $user)
     {
         $activityRepo = $this->doctrine->getManager()->getRepository('ActivityBundle:UserActivity');
         /** @var UserActivity $activity */
-        $activity = $activityRepo->findBy(array('user' => $this->user, 'lesson' => $lesson));
+        $activity = $activityRepo->findBy(array('user' => $user, 'lesson' => $lesson));
         if (empty($activity)) {
             return 0;
         }
@@ -58,16 +52,16 @@ class ActivityTracking
 
     /**
      * @param Language $language
-     *
-     * @return float
+     * @param User $user
+     * @return float|int
      */
-    public function getLanguagePercentage(Language $language)
+    public function getLanguagePercentage(Language $language, User $user)
     {
         $lessonRepo = $this->doctrine->getManager()->getRepository('LessonBundle:Lesson');
         $numberOfLessons = $lessonRepo->getCountLessons($language);
 
         $userActivityRepo = $this->doctrine->getManager()->getRepository('ActivityBundle:UserActivity');
-        $numberOfFinishedLessons = $userActivityRepo->getCountLessonFinished($language, $this->user);
+        $numberOfFinishedLessons = $userActivityRepo->getCountLessonFinished($language, $user);
 
         if (empty($numberOfFinishedLessons) || empty($numberOfLessons)) {
             return 0;
@@ -76,16 +70,35 @@ class ActivityTracking
         return floatval($numberOfFinishedLessons / $numberOfLessons * 100);
     }
 
-    public function getLanguageScore(Language $language, $user = null)
+    /**
+     * @param Language $language
+     * @param User $user
+     * @return mixed
+     */
+    public function getLanguageScore(Language $language, User $user)
     {
-        if(is_null($user)){
-            $user = $this->user;
-        }
-
         $userActivityRepo = $this->doctrine->getManager()->getRepository('ActivityBundle:UserActivity');
 
         return $userActivityRepo->getLanguageScoreForAnUser($language, $user);
     }
+
+    /**
+     * Returns the total score for a lesson
+     *
+     * @param Language $language
+     * @return float|int
+     */
+    public function getLanguageTotalScore(Language $language, User $user){
+        $score = 0;
+        $lessonsRepo = $this->doctrine->getRepository('LessonBundle:Lesson');
+        $lessons = $lessonsRepo->findBy(array('language' => $language));
+        foreach ($lessons as $lesson) {
+            $score += $this->getLessonScore($lesson, $user);
+        }
+
+        return $score;
+    }
+
     /**
      * Adds the question score to the current activity
      *
@@ -93,13 +106,16 @@ class ActivityTracking
      */
     public function addQuestionToActivity(Question $question)
     {
+        $user = $this->securityContext->getToken()->getUser();
+
         $currentScore = $this->getLessonScore($question->getLesson());
         $totalScore = $currentScore + $question->getScore();
         $activityRepo = $this->doctrine->getRepository('ActivityBundle:UserActivity');
-        $activity = $activityRepo->findBy(array('user' => $this->user, 'lesson' => $question->getLesson()));
+        $activity = $activityRepo->findBy(array('user' => $user, 'lesson' => $question->getLesson()));
+
         if (empty($activity)) {
             $activity = new UserActivity();
-            $activity->setUser($this->user);
+            $activity->setUser($user);
             $activity->setLesson($question->getLesson());
         } else {
             $activity = $activity[0];
@@ -110,22 +126,5 @@ class ActivityTracking
         $this->doctrine->getEntityManager()->persist($activity);
         $this->doctrine->getEntityManager()->flush();
 
-    }
-
-    /**
-     * Returns the total score for a lesson
-     *
-     * @param Language $language
-     * @return float|int
-     */
-    public function getLanguageTotalScore(Language $language){
-        $score = 0;
-        $lessonsRepo = $this->doctrine->getRepository('LessonBundle:Lesson');
-        $lessons = $lessonsRepo->findBy(array('language' => $language));
-        foreach ($lessons as $lesson) {
-            $score += $this->getLessonScore($lesson);
-        }
-
-        return $score;
     }
 }
