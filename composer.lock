@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1931d9662201e8cc068a878090c27fea",
-    "content-hash": "3580656980f340b13f05e55c13579907",
+    "hash": "aca5b88c2f38245cf9df52364a36265b",
+    "content-hash": "fffa501def2ab3f219239ef741770640",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -81,7 +81,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gigo6000/DevtimeBackboneBundle/zipball/00201a08524bf1e80ddb63bb22a2a3098235b43f",
+                "url": "https://api.github.com/repos/gigo6000/DevtimeBackboneBundle/zipball/8acfa75b77971872a5929b0f4796911f865bbaff",
                 "reference": "00201a08524bf1e80ddb63bb22a2a3098235b43f",
                 "shasum": ""
             },
@@ -946,7 +946,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/16b04c49af05dd3fb381e4abe04f0e5e231ac76d",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/d1fccc6335b74beca94525551cacc06b256ed261",
                 "reference": "16b04c49af05dd3fb381e4abe04f0e5e231ac76d",
                 "shasum": ""
             },
@@ -1362,6 +1362,62 @@
                 "minification"
             ],
             "time": "2015-11-12 13:51:40"
+        },
+        {
+            "name": "leafo/scssphp",
+            "version": "v0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/leafo/scssphp.git",
+                "reference": "78a6f27aa4eaf70bb3ff4d13b639bab71fdaf47a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/leafo/scssphp/zipball/78a6f27aa4eaf70bb3ff4d13b639bab71fdaf47a",
+                "reference": "78a6f27aa4eaf70bb3ff4d13b639bab71fdaf47a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "kherge/box": "~2.5",
+                "phpunit/phpunit": "~3.7",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "bin": [
+                "bin/pscss"
+            ],
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "classmap.php"
+                ],
+                "psr-4": {
+                    "Leafo\\ScssPhp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Leaf Corcoran",
+                    "email": "leafot@gmail.com",
+                    "homepage": "http://leafo.net"
+                }
+            ],
+            "description": "scssphp is a compiler for SCSS written in PHP.",
+            "homepage": "http://leafo.github.io/scssphp/",
+            "keywords": [
+                "css",
+                "less",
+                "sass",
+                "scss",
+                "stylesheet"
+            ],
+            "time": "2015-11-09 14:44:09"
         },
         {
             "name": "liip/imagine-bundle",
