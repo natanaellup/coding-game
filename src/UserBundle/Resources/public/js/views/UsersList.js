@@ -21,7 +21,7 @@ var UsersList = Backbone.View.extend({
         var userXp = user.find('.info').data('xp');
         var wrapper = $("<div></div>").addClass('user-tooltip-wrapper');
 
-        wrapper.append($("<p></p>").text("Puncte obtinute(XP):").css("font-weight", "bold"));
+        wrapper.append($("<p></p>").text("Experienta (XP):").css("font-weight", "bold"));
         $.each(userXp, function(index, value){
             wrapper.append($("<li></li>").text(index + " : " + value + " xp"));
         });
