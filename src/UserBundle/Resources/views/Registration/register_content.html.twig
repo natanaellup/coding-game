@@ -1,9 +1,9 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-    <div class="panel panel-info">
+    <div class="panel panel-danger">
         <div class="panel-heading">
-            <div class="panel-title">{{ 'Register'|trans }}</div>
+            <div class="panel-title">{{ 'Inregisrare' }}</div>
         </div>
 
         <div style="padding-top:30px" class="panel-body">
@@ -20,8 +20,8 @@
                 {{ form_row (form.plainPassword.second, { attr : { class :"form-control" } } )}}
 
                 <div class="col-sm-12 controls" style="padding-top:15px">
-                    <input class="form-control btn btn-primary" type="submit" id="_submit" name="_submit"
-                           value="{{ 'security.login.submit'|trans }}"/>
+                    <input class="form-control btn btn-danger" type="submit" id="_submit" name="_submit"
+                           value="Inregistrare"/>
                 </div>
             {{ form_end(form) }}
         </div>
