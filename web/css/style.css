@@ -1249,3 +1249,16 @@ body {
     line-height: 16px;
     padding: 8px 10px;
 }
+
+.lesson-overlay{
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    display: none;
+}
+
+.badge-modal{
+    font-size: 20px;
+}

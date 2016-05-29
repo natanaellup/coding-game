@@ -108,7 +108,7 @@ class ActivityTracking
     {
         $user = $this->securityContext->getToken()->getUser();
 
-        $currentScore = $this->getLessonScore($question->getLesson());
+        $currentScore = $this->getLessonScore($question->getLesson(), $user);
         $totalScore = $currentScore + $question->getScore();
         $activityRepo = $this->doctrine->getRepository('ActivityBundle:UserActivity');
         $activity = $activityRepo->findBy(array('user' => $user, 'lesson' => $question->getLesson()));

@@ -76,7 +76,7 @@ class LessonService
     }
 
     public function getLessonTotalScore(Lesson $lesson){
-        return $this->activityTraking->getLessonScore($lesson);
+        return $this->activityTraking->getLessonScore($lesson, $this->tokenStorage->getToken()->getUser());
     }
 
     /**

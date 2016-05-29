@@ -9,11 +9,15 @@ var LessonView = Backbone.View.extend({
         'change .answer-input': 'sendAnswer'
     },
     initModal: function (e) {
+        $('.lesson-overlay').show();
         $('.form-dialog').dialog({
             resizable: false,
             height: 700,
             width: 700,
-            modal: true
+            modal: true,
+            close: function(){
+                $('.lesson-overlay').hide();
+            }
         });
     },
     sendAnswer: function (e) {
