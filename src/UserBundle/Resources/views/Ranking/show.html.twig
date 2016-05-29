@@ -16,10 +16,10 @@
                     <td>Total</td>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="ranking-body">
                 {% for userName,userXp in xp %}
                     <tr>
-                        <td>
+                        <td class={% if app.user is not null and app.user.id == usersId[userName] %}{{ "current" }}{% endif %}>
                             <a href="{{ path('user_bundle.show_user', {slugName: userName|sonata_slugify, id: usersId[userName]}) }}">{{ userName }}</a>
                         </td>
                         {% for languageXp in userXp %}

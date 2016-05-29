@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Entity\User;
 use UserBundle\Form\EditProfileForm;
 
-class ProfileController extends Controller
+class ProfileController extends \FOS\UserBundle\Controller\ProfileController
 {
     /**
      * Directorul unde se vor salva pozele pentru profilul unui user.

@@ -118,6 +118,10 @@ label.radio-answer {
     font-weight: bold;
 }
 
+.ranking-body .current{
+    background-color: #FAEBD7;
+}
+
 /*
 Author: W3layout
 Author URL: http://w3layouts.com
