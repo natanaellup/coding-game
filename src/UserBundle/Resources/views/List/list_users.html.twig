@@ -2,18 +2,14 @@
 
 {% block content %}
     <div class="all-badges" data-all_badges="{{ allBadges }}"></div>
-    <div class="users">
+    <div class="main row users">
         {% for user in users %}
-            <div class="user">
-                <a href="{{ path('user_bundle.show_user', {slugName: user.username|sonata_slugify, id: user.id}) }}">
-                    <img class="image" src="{{ asset(user.avatarUrl) }}" width="200px" height="200px">
-                    <div class="user-information">
-                        <h4>{{ user.username }}</h4>
-                        <div class="info" data-badges="{{ badges[user.id] }}" data-xp="{{ xp[user.id] }}">
-                        </div>
-                    </div>
-
-                </a>
+            <div class="col-md-3 images_1_of_4 text-center">
+                <span class="bg"><img src="{{ asset(user.avatarUrl) }}" height="120px" width="120px" class="img-circle"></span>
+                <h4>
+                    <a href="{{ path('user_bundle.show_user', {slugName: user.username|sonata_slugify, id: user.id}) }}">{{ user.username }}</a>
+                </h4>
+                <div class="info" data-badges="{{ badges[user.id] }}" data-xp="{{ xp[user.id] }}"></div>
             </div>
         {% endfor %}
     </div>
