@@ -47,6 +47,7 @@ assetic:
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
+        jsqueeze: ~
     assets:
         owl:
             inputs:
