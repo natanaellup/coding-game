@@ -8,7 +8,9 @@
                     <img src="{{ asset(language.getLogoUrl) }}" width="150px" height="100px">
                     <h4>{{ language.name }}</h4>
                     <p class="para">{{ language.getLessons|length }} lectii</p>
-                    <p class="para">Parcurs: {{ scores[language.id]|number_format }} %</p>
+                    {% if scores is defined %}
+                        <p class="para">Parcurs: {{ scores[language.id]|number_format }} %</p>
+                    {% endif %}
                 </a>
             </div>
         {% endfor %}
